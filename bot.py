@@ -38,7 +38,7 @@ async def on_message(message):
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    if !member.bot and (before.channel != after.channel):
+    if (member.bot == False) and (before.channel != after.channel):
         now = datetime.utcnow() + timedelta(hours=9)
         alert_channel = client.get_channel(728864767116181515)
         if before.channel is None: 
