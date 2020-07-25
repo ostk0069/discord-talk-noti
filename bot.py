@@ -8,6 +8,7 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
+CHANNEL_ID = os.environ.get("CHANNEL_ID")
 
 client = discord.Client()
 
@@ -25,21 +26,22 @@ async def on_message(message):
     # Botだったらは無視
     if message.author.bot:
         return
-    if message.content == "/version"
+    if message.content == "/version":
         await message.channel.send('1.0.0')
     if message.content == '/hello':
         await message.channel.send('hello')
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    if member.guild.id == 監視するサーバーid and (before.channel != after.channel):
+    if (before.channel != after.channel):
         now = datetime.utcnow() + timedelta(hours=9)
-        alert_channel = client.get_channel(通知させたいテキストチャンネルid)
+        alert_channel = client.get_channel(728864767116181515)
+        print(alert_channel)
         if before.channel is None: 
-            msg = f'{now:%m/%d-%H:%M} に {member.name} が {after.channel.name} に参加したよ'
+            msg = f'@everyone {now:%H:%M} に {member.name} が {after.channel.name} に参加したよ'
             await alert_channel.send(msg)
         elif after.channel is None: 
-            msg = f'{now:%m/%d-%H:%M} に {member.name} が {before.channel.name} から退出したよ'
+            msg = f'{now:%H:%M} に {member.name} が {before.channel.name} から退出したよ'
             await alert_channel.send(msg)
 
 client.run(TOKEN)
