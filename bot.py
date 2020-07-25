@@ -38,9 +38,9 @@ async def on_message(message):
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    if (before.channel != after.channel):
+    if member.guild.id == SERVER_ID and (before.channel != after.channel):
         now = datetime.utcnow() + timedelta(hours=9)
-        alert_channel = client.get_channel(728864767116181515)
+        alert_channel = client.get_channel(CHANNEL_ID)
         print(alert_channel)
         if before.channel is None: 
             msg = f'@everyone {now:%H:%M} に {member.name} が {after.channel.name} に参加したよ'
