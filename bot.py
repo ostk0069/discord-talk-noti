@@ -15,7 +15,7 @@ CHANNEL_ID = os.environ.get("CHANNEL_ID")
 
 client = discord.Client()
 
-with open('ids_v1.json') as ids_data:
+with open('../discord-talk-noti/ids_v1.json') as ids_data:
     id_array = json.load(ids_data)
 
 #BOTが起動したとき
