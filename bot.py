@@ -1,6 +1,12 @@
 import discord
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
-TOKEN = 'NzMzNzA1NDkzNTQ5MTU0Mzc2.XxHCfQ.ECQZLtCD4rPwZo79fsyoN4TLHow'
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+TOKEN = os.environ.get("DISCORD_DISCORDTOKEN")
 
 client = discord.Client()
 
