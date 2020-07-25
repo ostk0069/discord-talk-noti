@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import json
+import random
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -12,6 +14,9 @@ SERVER_ID = os.environ.get("SERVER_ID")
 CHANNEL_ID = os.environ.get("CHANNEL_ID")
 
 client = discord.Client()
+
+with open('ids_v1.json') as ids_data:
+    id_array = json.load(ids_data)
 
 #BOTが起動したとき
 @client.event
@@ -28,13 +33,16 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == "/version":
-        await message.channel.send('1.0.1')
+        await message.channel.send('1.1.1')
     if message.content == '/hello':
         await message.channel.send('hello')
     if message.content == '/server':
         await message.channel.send(f'{SERVER_ID} is your server id')
     if message.content == '/notification_channel':
         await message.channel.send(f'{CHANNEL_ID} is your notification channel id')
+    if message.content ==  '/gacha':
+        image_id = id_array[random.randrange(len(id_array))]
+        await message.channel.send(f'https://drive.google.com/uc?export=view&id={image_id}&usp=sharing')
 
 @client.event
 async def on_voice_state_update(member, before, after):
