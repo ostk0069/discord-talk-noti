@@ -8,6 +8,8 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
+SERVER_ID = os.environ.get("SERVER_ID")
+CHANNEL_ID = os.environ.get("CHANNEL_ID")
 
 client = discord.Client()
 
@@ -26,9 +28,13 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == "/version":
-        await message.channel.send('1.0.0')
+        await message.channel.send('1.0.1')
     if message.content == '/hello':
         await message.channel.send('hello')
+    if message.content == '/server':
+        await message.channel.send(f'{SERVER_ID} is your server id')
+    if message.content == '/notification_channel':
+        await message.channel.send(f'{CHANNEL_ID} is your notification channel id')
 
 @client.event
 async def on_voice_state_update(member, before, after):
