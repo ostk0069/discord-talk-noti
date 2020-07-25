@@ -38,17 +38,14 @@ async def on_message(message):
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    if (before.channel != after.channel):
+    if !member.bot and (before.channel != after.channel):
         now = datetime.utcnow() + timedelta(hours=9)
-        alert_channel = client.get_channel(CHANNEL_ID)
-        print(alert_channel)
+        alert_channel = client.get_channel(728864767116181515)
         if before.channel is None: 
             msg = f'@everyone {now:%H:%M} に {member.name} が {after.channel.name} に参加したよ'
-            # await alert_channel.send(msg)
-            print(msg)
+            await alert_channel.send(msg)
         elif after.channel is None: 
-            msg = f'{now:%H:%M} に {member.name} が {before.channel.name} から退出したよ'
-            # await alert_channel.send(msg)
-            print(msg)
+            msg = f'@here {now:%H:%M} に {member.name} が {before.channel.name} から退出したよ'
+            await alert_channel.send(msg)
 
 client.run(TOKEN)
