@@ -15,7 +15,7 @@ CHANNEL_ID = os.environ.get("CHANNEL_ID")
 
 client = discord.Client()
 
-with open('../discord-talk-noti/ids_v1.json') as ids_data:
+with open('../discord-talk-noti/ids_v2.json') as ids_data:
     id_array = json.load(ids_data)
 
 #BOTが起動したとき
@@ -42,7 +42,7 @@ async def on_message(message):
         await message.channel.send(f'{CHANNEL_ID} is your notification channel id')
     if message.content ==  '/gacha':
         image_id = id_array[random.randrange(len(id_array))]
-        await message.channel.send(f'https://drive.google.com/uc?export=view&id={image_id}&usp=sharing')
+        await message.channel.send(f'{image_id}')
 
 @client.event
 async def on_voice_state_update(member, before, after):
